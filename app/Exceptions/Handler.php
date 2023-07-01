@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Spatie\SlackAlerts\Facades\SlackAlert;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -24,7 +25,14 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
+            if (config('slack-alerts.webhook_urls.error')) {
+                SlackAlert::to('error')->message(
+                    "*{$e->getMessage()}*\n"
+                        .'Request: '.request()->fullUrl()."\n"
+                        ."File: `{$e->getFile()}`\n"
+                        ."Line: `{$e->getLine()}`\n"
+                );
+            }
         });
     }
 }
