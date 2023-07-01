@@ -10,7 +10,7 @@ class MenuConversation extends Conversation
 {
     public function run()
     {
-        $question = Question::create('Choose a category')
+        $question = Question::create('Select a category')
             ->addButtons([
                 Button::create('Market Price')->value('market'),
                 Button::create('Download Application')->value('download'),

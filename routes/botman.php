@@ -8,7 +8,7 @@ use App\Http\Conversations\MenuConversation;
 
 $botman = resolve('botman');
 
-$botman->hears('hi|hii|hello', function ($bot) {
+$botman->hears('hi|hii|hello|/start', function ($bot) {
     $bot->startConversation(new MenuConversation());
 });
 
