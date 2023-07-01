@@ -15,7 +15,7 @@ class MarketPriceRepeatConversation extends Conversation
                 Button::create('Yes')
                     ->value('yes'),
                 Button::create('No')
-                    ->value('no')
+                    ->value('no'),
             ]);
         $this->bot->ask($question, function ($answer) {
             if ($answer->getValue() == 'yes') {

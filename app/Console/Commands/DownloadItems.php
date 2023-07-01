@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DownloadItems extends Command
 {
@@ -31,7 +31,7 @@ class DownloadItems extends Command
         $items = json_decode($items, true);
         $formattedItems = [];
         foreach ($items as $item) {
-            if (!empty($item['LocalizedNames']['EN-US'])) {
+            if (! empty($item['LocalizedNames']['EN-US'])) {
                 $formattedItems[] = [
                     'id' => Str::after($item['LocalizationNameVariable'], '@ITEMS_'),
                     'name' => Str::after($item['LocalizedNames']['EN-US'], '@'),
