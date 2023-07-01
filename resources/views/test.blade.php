@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Laravel Install Botman Chatbot Example</title>
+        <title>Chatbot Test</title>
     </head>
     <body>
     </body>
@@ -13,7 +13,7 @@
     <script>
         var botmanWidget = {
             aboutText: 'Botman',
-            introMessage: "Hello! How may we help you?"
+            introMessage: "Say Hi"
         };
     </script>
    
