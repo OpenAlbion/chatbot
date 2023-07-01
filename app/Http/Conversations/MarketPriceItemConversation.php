@@ -30,7 +30,7 @@ class MarketPriceItemConversation extends Conversation
                 $this->bot->ask($question, function ($answer) use ($items) {
                     $result = (new ItemService)->detail('west', $items[$answer->getValue()]['id']);
                     if (! empty($result)) {
-                        $this->bot->reply($items[$answer->getValue()]['name'].' prices for the West server.');
+                        $result = $items[$answer->getValue()]['name']." prices for the West server. \n\n".$result;
                         $this->bot->reply($result, [
                             'parse_mode' => 'Markdown',
                         ]);
@@ -40,7 +40,7 @@ class MarketPriceItemConversation extends Conversation
 
                     $result = (new ItemService)->detail('east', $items[$answer->getValue()]['id']);
                     if (! empty($result)) {
-                        $this->bot->reply($items[$answer->getValue()]['name'].' prices for the East server.');
+                        $result = $items[$answer->getValue()]['name']." prices for the East server. \n\n".$result;
                         $this->bot->reply($result, [
                             'parse_mode' => 'Markdown',
                         ]);
@@ -53,7 +53,7 @@ class MarketPriceItemConversation extends Conversation
             } elseif (count($buttons) == 1) {
                 $result = (new ItemService)->detail('west', $items[0]['id']);
                 if (! empty($result)) {
-                    $this->bot->reply($items[0]['name'].' prices for the West server.');
+                    $result = $items[$items[0]['name']]." prices for the West server. \n\n".$result;
                     $this->bot->reply($result, [
                         'parse_mode' => 'Markdown',
                     ]);
@@ -63,7 +63,7 @@ class MarketPriceItemConversation extends Conversation
 
                 $result = (new ItemService)->detail('east', $items[0]['id']);
                 if (! empty($result)) {
-                    $this->bot->reply($items[0]['name'].' prices for the East server.');
+                    $result = $items[$items[0]['name']]." prices for the East server. \n\n".$result;
                     $this->bot->reply($result, [
                         'parse_mode' => 'Markdown',
                     ]);
