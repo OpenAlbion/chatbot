@@ -18,10 +18,14 @@ class MarketPriceRepeatConversation extends Conversation
                     ->value('no'),
             ]);
         $this->bot->ask($question, function ($answer) {
-            if ($answer->getValue() == 'yes') {
-                $this->bot->startConversation(new MarketPriceConversation());
+            if ($answer->isInteractiveMessageReply()) {
+                if ($answer->getValue() == 'yes') {
+                    $this->bot->startConversation(new MarketPriceConversation());
+                } else {
+                    $this->bot->reply('Sure');
+                }
             } else {
-                $this->bot->reply('Sure');
+                $this->repeat();
             }
         });
     }
