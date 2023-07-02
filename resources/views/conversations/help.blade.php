@@ -1,9 +1,13 @@
-Please use the following commands:
+Welcome from OpenAlbion Chatbot
 
-*Search*: Check market price
+*/server region*: Set the server to East or West
 
-*Search name*: Check market price for a specific item
+*/search name*: Check market price for a specific item
 
-*Download*: Download the OpenAlbion Weaponry app
+*/download*: Download the OpenAlbion Weaponry app
 
-*Stop*: Stop the conversation
+*/about*: About Us
+
+*/stop*: Stop the conversation
+
+Your current server is {{ $server }}.

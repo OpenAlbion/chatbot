@@ -1,9 +1,34 @@
+@foreach($itemGroups as $city => $items)
+@if(collect($items)->sum('sell_price_min') > 0)
+*{{ $items[0]['city'] }}*
+@endif
 @foreach($items as $item)
 @if($item['sell_price_min'] > 0)
-*{{ $item['city'] }}*
-
-Sale Price - {{ $item['sell_price_min'] }} ({{\Carbon\Carbon::parse($item['sell_price_min_date'])->diffForHumans()}} | UTC)
-
-
+@php
+	$quality = 'Normal';
+	if($item['quality'] == 1) {
+		$quality = 'Normal';
+	} elseif($item['quality'] == 2) {
+		$quality = 'Good';
+	} elseif($item['quality'] == 3) {
+		$quality = 'Outstanding';
+	} elseif($item['quality'] == 4) {
+		$quality = 'Excellent';
+	} elseif($item['quality'] == 5) {
+		$quality = 'Masterpiece';
+	}
+@endphp
+{{ $quality }} - {{ $item['sell_price_min'] }} ({{\Carbon\Carbon::parse($item['sell_price_min_date'])->diffForHumans()}} | UTC)
 @endif
 @endforeach
+
+
+@endforeach
+
+@php
+$cheapestItem = collect($items)->where('quality', 1)->sortBy('sell_price_min', SORT_NATURAL)->first();
+@endphp
+
+@if($cheapestItem && $cheapestItem['sell_price_min'] > 0)
+(The cheapest price is {{ $cheapestItem['sell_price_min'] }} (Normal) silver at {{  $cheapestItem['city'] }} City)
+@endif

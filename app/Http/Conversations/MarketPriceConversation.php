@@ -6,6 +6,7 @@ use App\Services\ItemService;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
+use Illuminate\Support\Str;
 
 class MarketPriceConversation extends Conversation
 {
@@ -21,54 +22,37 @@ class MarketPriceConversation extends Conversation
                     ->value($index);
             }
 
+            $server = Str::title($this->bot->userStorage()->get('server') ?: 'east');
+
             if (count($buttons) > 1) {
                 $question = Question::create('Please select an item from the options provided')
                     ->addButtons($buttons);
-                $this->bot->ask($question, function ($answer) use ($items) {
-                    $result = (new ItemService)->detail('west', $items[$answer->getValue()]['id']);
-                    if (!empty($result)) {
-                        $result = $items[$answer->getValue()]['name'] . " prices for the West server. \n\n" . $result;
-                        $this->bot->reply($result, [
-                            'parse_mode' => 'Markdown',
-                        ]);
-                    } else {
-                        $this->bot->reply('No prices found for ' . $items[$answer->getValue()]['name'] . ' on the West server.');
-                    }
 
-                    $result = (new ItemService)->detail('east', $items[$answer->getValue()]['id']);
-                    if (!empty($result)) {
-                        $result = $items[$answer->getValue()]['name'] . " prices for the East server. \n\n" . $result;
+                $this->bot->ask($question, function ($answer) use ($items, $server) {
+                    $result = (new ItemService)->detail($server, $items[$answer->getValue()]['id']);
+                    if (! empty($result)) {
+                        $result = $items[$answer->getValue()]['name']." ($server Server) \n\n".$result;
                         $this->bot->reply($result, [
                             'parse_mode' => 'Markdown',
                         ]);
                     } else {
-                        $this->bot->reply('No prices found for ' . $items[$answer->getValue()]['name'] . ' on the East server.');
+                        $this->bot->reply('No prices found for '.$items[$answer->getValue()]['name']." on the {$server} server.");
                     }
 
                     $this->bot->startConversation(new MarketPriceRepeatConversation);
                 });
             } elseif (count($buttons) == 1) {
-                $result = (new ItemService)->detail('west', $items[0]['id']);
-                if (!empty($result)) {
-                    $result = $items[0]['name'] . " prices for the West server. \n\n" . $result;
+                $result = (new ItemService)->detail($server, $items[$answer->getValue()]['id']);
+                if (! empty($result)) {
+                    $result = $items[$answer->getValue()]['name']." ($server Server) \n\n".$result;
                     $this->bot->reply($result, [
                         'parse_mode' => 'Markdown',
                     ]);
                 } else {
-                    $this->bot->reply('No prices found for ' . $items[0]['name'] . ' on the West server.');
-                }
-
-                $result = (new ItemService)->detail('east', $items[0]['id']);
-                if (!empty($result)) {
-                    $result = $items[0]['name'] . " prices for the East server. \n\n" . $result;
-                    $this->bot->reply($result, [
-                        'parse_mode' => 'Markdown',
-                    ]);
-                } else {
-                    $this->bot->reply('No prices found for ' . $items[0]['name'] . ' on the East server.');
+                    $this->bot->reply('No prices found for '.$items[$answer->getValue()]['name']." on the {$server} server.");
                 }
             } else {
-                $this->bot->reply('No items found for ' . $answer->getText());
+                $this->bot->reply('No items found for '.$answer->getText());
                 $this->repeat();
             }
         });

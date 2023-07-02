@@ -22,9 +22,12 @@ class ItemService
 
     public function detail(string $region, string $itemId): ?string
     {
+        $region = Str::lower($region);
         $response = Http::aod($region, $itemId);
         if ($response->ok()) {
-            return view('conversations.itemDetail', ['items' => $response->json()])
+            $items = collect($response->json())->groupBy('city');
+
+            return view('conversations.itemDetail', ['itemGroups' => $items])
                 ->render();
         }
 
