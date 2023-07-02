@@ -21,6 +21,7 @@
 {{ $quality }} - {{ number_format($item['sell_price_min']) }} ({{\Carbon\Carbon::parse($item['sell_price_min_date'])->diffForHumans()}} | UTC)
 @endif
 @endforeach
+
 @endforeach
 
 @php
