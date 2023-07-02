@@ -51,7 +51,7 @@ class MarketPriceItemConversation extends Conversation
             } elseif (count($buttons) == 1) {
                 $result = (new ItemService)->detail('west', $items[0]['id']);
                 if (!empty($result)) {
-                    $result = $items[$items[0]['name']] . " prices for the West server. \n\n" . $result;
+                    $result = $items[0]['name'] . " prices for the West server. \n\n" . $result;
                     $this->bot->reply($result, [
                         'parse_mode' => 'Markdown',
                     ]);
@@ -61,7 +61,7 @@ class MarketPriceItemConversation extends Conversation
 
                 $result = (new ItemService)->detail('east', $items[0]['id']);
                 if (!empty($result)) {
-                    $result = $items[$items[0]['name']] . " prices for the East server. \n\n" . $result;
+                    $result = $items[0]['name'] . " prices for the East server. \n\n" . $result;
                     $this->bot->reply($result, [
                         'parse_mode' => 'Markdown',
                     ]);
