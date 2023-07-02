@@ -27,27 +27,27 @@ class MarketPriceItemConversation extends Conversation
                     ->value($index);
             }
 
-            info('fuck', $buttons);
-
             $server = Str::title($this->bot->userStorage()->get('server') ?: 'east');
 
             if (count($buttons) > 1) {
                 $question = Question::create('Please select an item from the options provided')
                     ->addButtons($buttons);
                 $this->bot->ask($question, function ($answer) use ($items, $server, $itemEnchantment) {
-                    info($answer->getValue());
-                    info($items[$answer->getValue()]['id']);
-                    $result = (new ItemService)->detail($server, $items[$answer->getValue()]['id'], $itemEnchantment);
-                    if (!empty($result)) {
-                        $enchantment = in_array($itemEnchantment, range(1, 4))
-                            ? " @{$itemEnchantment}"
-                            : '';
-                        $result = $items[$answer->getValue()]['name'] . "{$enchantment} ($server Server) \n\n" . $result;
-                        $this->bot->reply($result, [
-                            'parse_mode' => 'Markdown',
-                        ]);
+                    if ($answer->isInteractiveMessageReply()) {
+                        $result = (new ItemService)->detail($server, $items[$answer->getValue()]['id'], $itemEnchantment);
+                        if (!empty($result)) {
+                            $enchantment = in_array($itemEnchantment, range(1, 4))
+                                ? " @{$itemEnchantment}"
+                                : '';
+                            $result = $items[$answer->getValue()]['name'] . "{$enchantment} ($server Server) \n\n" . $result;
+                            $this->bot->reply($result, [
+                                'parse_mode' => 'Markdown',
+                            ]);
+                        } else {
+                            $this->bot->reply('No prices found for ' . $items[$answer->getValue()]['name'] . " on the {$server} server.");
+                        }
                     } else {
-                        $this->bot->reply('No prices found for ' . $items[$answer->getValue()]['name'] . " on the {$server} server.");
+                        $this->repeat();
                     }
                 });
             } elseif (count($buttons) == 1) {
