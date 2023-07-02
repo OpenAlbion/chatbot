@@ -18,11 +18,9 @@
 		$quality = 'Masterpiece';
 	}
 @endphp
-{{ $quality }} - {{ $item['sell_price_min'] }} ({{\Carbon\Carbon::parse($item['sell_price_min_date'])->diffForHumans()}} | UTC)
+{{ $quality }} - {{ number_format($item['sell_price_min']) }} ({{\Carbon\Carbon::parse($item['sell_price_min_date'])->diffForHumans()}} | UTC)
 @endif
 @endforeach
-
-
 @endforeach
 
 @php
@@ -33,5 +31,5 @@ $cheapestItem = collect($flatItems)->where('quality', 1)
 @endphp
 
 @if($cheapestItem && $cheapestItem['sell_price_min'] > 0)
-(The cheapest price for normal quality is {{ $cheapestItem['sell_price_min'] }} silver at {{  $cheapestItem['city'] }} City)
+(The cheapest price for normal quality is {{ number_format($cheapestItem['sell_price_min']) }} silver at {{  $cheapestItem['city'] }} City)
 @endif
