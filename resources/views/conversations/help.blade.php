@@ -6,8 +6,8 @@ Welcome from OpenAlbion Chatbot
 
 */download*: Download the OpenAlbion Weaponry app
 
-*/about*: About Us
+*/about*: About OpenAlbion
 
-*/stop*: Stop the conversation
+*/stop*: Stop the current conversation
 
 Your current server is {{ $server }}.
