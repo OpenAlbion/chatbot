@@ -30,29 +30,29 @@ class MarketPriceConversation extends Conversation
 
                 $this->bot->ask($question, function ($answer) use ($items, $server) {
                     $result = (new ItemService)->detail($server, $items[$answer->getValue()]['id']);
-                    if (! empty($result)) {
-                        $result = $items[$answer->getValue()]['name']." ($server Server) \n\n".$result;
+                    if (!empty($result)) {
+                        $result = $items[$answer->getValue()]['name'] . " ($server Server) \n\n" . $result;
                         $this->bot->reply($result, [
                             'parse_mode' => 'Markdown',
                         ]);
                     } else {
-                        $this->bot->reply('No prices found for '.$items[$answer->getValue()]['name']." on the {$server} server.");
+                        $this->bot->reply('No prices found for ' . $items[$answer->getValue()]['name'] . " on the {$server} server.");
                     }
 
                     $this->bot->startConversation(new MarketPriceRepeatConversation);
                 });
             } elseif (count($buttons) == 1) {
-                $result = (new ItemService)->detail($server, $items[$answer->getValue()]['id']);
-                if (! empty($result)) {
-                    $result = $items[$answer->getValue()]['name']." ($server Server) \n\n".$result;
+                $result = (new ItemService)->detail($server, $items[0]['id']);
+                if (!empty($result)) {
+                    $result = $items[0]['name'] . " ($server Server) \n\n" . $result;
                     $this->bot->reply($result, [
                         'parse_mode' => 'Markdown',
                     ]);
                 } else {
-                    $this->bot->reply('No prices found for '.$items[$answer->getValue()]['name']." on the {$server} server.");
+                    $this->bot->reply('No prices found for ' . $items[0]['name'] . " on the {$server} server.");
                 }
             } else {
-                $this->bot->reply('No items found for '.$answer->getText());
+                $this->bot->reply('No items found for ' . $answer->getText());
                 $this->repeat();
             }
         });

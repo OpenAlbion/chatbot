@@ -27,40 +27,44 @@ class MarketPriceItemConversation extends Conversation
                     ->value($index);
             }
 
+            info('fuck', $buttons);
+
             $server = Str::title($this->bot->userStorage()->get('server') ?: 'east');
 
             if (count($buttons) > 1) {
                 $question = Question::create('Please select an item from the options provided')
                     ->addButtons($buttons);
                 $this->bot->ask($question, function ($answer) use ($items, $server, $itemEnchantment) {
+                    info($answer->getValue());
+                    info($items[$answer->getValue()]['id']);
                     $result = (new ItemService)->detail($server, $items[$answer->getValue()]['id'], $itemEnchantment);
-                    if (! empty($result)) {
+                    if (!empty($result)) {
                         $enchantment = in_array($itemEnchantment, range(1, 4))
                             ? " @{$itemEnchantment}"
                             : '';
-                        $result = $items[0]['name']."{$enchantment} ($server Server) \n\n".$result;
+                        $result = $items[$answer->getValue()]['name'] . "{$enchantment} ($server Server) \n\n" . $result;
                         $this->bot->reply($result, [
                             'parse_mode' => 'Markdown',
                         ]);
                     } else {
-                        $this->bot->reply('No prices found for '.$items[$answer->getValue()]['name']." on the {$server} server.");
+                        $this->bot->reply('No prices found for ' . $items[$answer->getValue()]['name'] . " on the {$server} server.");
                     }
                 });
             } elseif (count($buttons) == 1) {
                 $result = (new ItemService)->detail('west', $items[0]['id'], $itemEnchantment);
-                if (! empty($result)) {
+                if (!empty($result)) {
                     $enchantment = in_array($itemEnchantment, range(1, 4))
                         ? " @{$itemEnchantment}"
                         : '';
-                    $result = $items[0]['name']."{$enchantment} ($server Server) \n\n".$result;
+                    $result = $items[0]['name'] . "{$enchantment} ($server Server) \n\n" . $result;
                     $this->bot->reply($result, [
                         'parse_mode' => 'Markdown',
                     ]);
                 } else {
-                    $this->bot->reply('No prices found for '.$items[0]['name']." on the {$server} server.");
+                    $this->bot->reply('No prices found for ' . $items[0]['name'] . " on the {$server} server.");
                 }
             } else {
-                $this->bot->reply('No items found for '.$itemName);
+                $this->bot->reply('No items found for ' . $itemName);
             }
         } else {
             $this->bot->reply('Sorry, unable to perform the search at the moment.');
