@@ -9,6 +9,8 @@ class ServerConversation extends Conversation
     public function run()
     {
         $server = $this->bot->userStorage()->get('server');
-        $this->bot->reply("Your server has been set to *{$server}*");
+        $this->bot->reply("Your server has been set to *{$server}*", [
+            'parse_mode' => 'Markdown',
+        ]);
     }
 }

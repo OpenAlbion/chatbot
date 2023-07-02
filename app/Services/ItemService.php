@@ -20,10 +20,10 @@ class ItemService
         })->values()->take(10)->toArray();
     }
 
-    public function detail(string $region, string $itemId): ?string
+    public function detail(string $region, string $itemId, ?string $enchantment = null): ?string
     {
         $region = Str::lower($region);
-        $response = Http::aod($region, $itemId);
+        $response = Http::aod($region, $itemId, $enchantment);
         if ($response->ok()) {
             $items = collect($response->json())->groupBy('city');
 
