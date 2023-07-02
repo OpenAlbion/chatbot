@@ -27,8 +27,10 @@ class ItemService
         if ($response->ok()) {
             $items = collect($response->json())->groupBy('city');
 
-            return view('conversations.itemDetail', ['itemGroups' => $items])
-                ->render();
+            return view('conversations.itemDetail', [
+                'itemGroups' => $items,
+                'flatItems' => $response->json()
+            ])->render();
         }
 
         return null;

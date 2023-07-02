@@ -26,9 +26,12 @@
 @endforeach
 
 @php
-$cheapestItem = collect($items)->where('quality', 1)->sortBy('sell_price_min', SORT_NATURAL)->first();
+$cheapestItem = collect($flatItems)->where('quality', 1)
+	->sortBy('sell_price_min')
+	->where('sell_price_min', '>', 0)
+	->first();
 @endphp
 
 @if($cheapestItem && $cheapestItem['sell_price_min'] > 0)
-(The cheapest price is {{ $cheapestItem['sell_price_min'] }} (Normal) silver at {{  $cheapestItem['city'] }} City)
+(The cheapest price for normal quality is {{ $cheapestItem['sell_price_min'] }} silver at {{  $cheapestItem['city'] }} City)
 @endif
