@@ -95,6 +95,9 @@ $botman->hears('/stop', function ($bot) {
 })->stopsConversation();
 
 $botman->fallback(function ($bot) {
+    $lang = $bot->userStorage()?->get('lang') ?: 'en';
+    App::setLocale($lang);
+
     $bot->reply(__('messages.fallback_conversation'));
     $bot->startConversation(new HelpConversation());
 });
