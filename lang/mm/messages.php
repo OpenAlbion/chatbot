@@ -10,7 +10,8 @@ return [
         'welcome' => 'OpenAlbion Chatbot မှ ကြိုဆိုပါတယ်',
         'server' => '*/server east|west*: East (သို့မဟုတ်) West ဆာဗာ သတ်မှတ်ရန်',
         'search' => '*/search name*: Market price ရှာဖွေရန်',
-        'language' => '*/language en|mm*: ဘာသာစကား ရွေးချယ်ရန်',
+        'language' => '*/language en|mm*: ဘာသာစကား သတ်မှတ်ရန်',
+        'timezone' => '*/timezone Continent/City*: Timezone သတ်မှတ်ရန်',
         'download' => '*/download*: OpenAlbion Weaponry အား download ဆွဲရန်',
         'about' => '*/about*: OpenAlbion အကြောင်း',
         'stop' => '*/stop*: စကားဆက်မပြောရန်',
@@ -32,6 +33,10 @@ return [
     'language_conversation' => [
         'message' => '*:lang* ဘာသာစကား အဖြစ် သတ်မှတ်ပြီးပါပြီ။',
         'error' => '/language အတွက် en (သို့မဟုတ်) mm တစ်ခုပဲ လက်ခံပါတယ်။'
+    ],
+    'timezone_conversation' => [
+        'message' => '*:tz* timezone အဖြစ် သတ်မှတ်ပြီးပါပြီ။',
+        'error' => '/timezone အတွက် မှန်ကန်စွာ ရိုက်ထည့်ပေးဖို့လိုပါတယ်(ဥပမာ - Asia/Yangon)။ အသေးစိတ်ကို [ဒီလင့်](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) မှာကြည့်လို့ရပါတယ်။'
     ],
     'fallback_conversation' => 'အားနာပါတယ်။ ယခု message အတွက် ပြန်လည်လုပ်ဆောင်နိုင်ခြင်း မရှိသေးပါ။',
     'sure' => 'ဟုတ်ကဲ့',

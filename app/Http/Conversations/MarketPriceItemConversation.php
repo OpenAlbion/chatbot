@@ -36,14 +36,15 @@ class MarketPriceItemConversation extends Conversation
                 $this->bot->ask($question, function ($answer) use ($items, $server, $itemEnchantment) {
                     if ($answer->isInteractiveMessageReply()) {
                         $lang = $this->bot->userStorage()?->get('lang') ?: 'en';
+                        $tz = $this->bot->userStorage()?->get('tz') ?: 'UTC';
                         App::setLocale($lang);
 
-                        $result = (new ItemService)->detail($server, $items[$answer->getValue()]['id'], $itemEnchantment);
+                        $result = (new ItemService)->detail($server, $items[$answer->getValue()]['id'], $itemEnchantment, $tz);
                         if (!empty($result)) {
                             $enchantment = in_array($itemEnchantment, range(1, 4))
                                 ? " @{$itemEnchantment}"
                                 : '';
-                            $result = $items[$answer->getValue()]['name'] . "{$enchantment} ($server Server) \n\n" . $result;
+                            $result = $items[$answer->getValue()]['name'] . "{$enchantment} ($server Server) | $tz \n\n" . $result;
                             $this->bot->reply($result, [
                                 'parse_mode' => 'Markdown',
                             ]);
@@ -58,12 +59,13 @@ class MarketPriceItemConversation extends Conversation
                     }
                 });
             } elseif (count($buttons) == 1) {
-                $result = (new ItemService)->detail('west', $items[0]['id'], $itemEnchantment);
+                $tz = $this->bot->userStorage()?->get('tz') ?: 'UTC';
+                $result = (new ItemService)->detail('west', $items[0]['id'], $itemEnchantment, $tz);
                 if (!empty($result)) {
                     $enchantment = in_array($itemEnchantment, range(1, 4))
                         ? " @{$itemEnchantment}"
                         : '';
-                    $result = $items[0]['name'] . "{$enchantment} ($server Server) \n\n" . $result;
+                    $result = $items[0]['name'] . "{$enchantment} ($server Server) | $tz \n\n" . $result;
                     $this->bot->reply($result, [
                         'parse_mode' => 'Markdown',
                     ]);

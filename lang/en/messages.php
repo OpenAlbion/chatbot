@@ -10,7 +10,8 @@ return [
         'welcome' => 'Welcome from OpenAlbion Chatbot',
         'server' => '*/server east|west*: Set the server to East or West',
         'search' => '*/search name*: Check market price for a specific item',
-        'language' => '*/language en|mm*: Select your preferred language',
+        'language' => '*/language en|mm*: Set language to EN or MM',
+        'timezone' => '*/timezone Continent/City*: Set your preferred timezone',
         'download' => '*/download*: Download the OpenAlbion Weaponry app',
         'about' => '*/about*: About OpenAlbion',
         'stop' => '*/stop*: Stop the current conversation',
@@ -32,6 +33,10 @@ return [
     'language_conversation' => [
         'message' => 'Your language has been set to *:lang*.',
         'error' => 'The /language command only accepts *en* or *mm* as valid options.'
+    ],
+    'timezone_conversation' => [
+        'message' => 'Your timezone has been set to *:tz*.',
+        'error' => 'The /timezone command only accepts valid timezones. For example, you can use timezones like \'America/New_York\' or \'Asia/Yangon\'. Please refer to [this wikipedia link](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for more details on available timezones.'
     ],
     'fallback_conversation' => 'Sorry, there is no response available for this message!',
     'sure' => 'Sure',

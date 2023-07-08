@@ -6,6 +6,8 @@
 
 {{ __('messages.help.language') }}
 
+{{ __('messages.help.timezone') }}
+
 {{ __('messages.help.download') }}
 
 {{ __('messages.help.about') }}

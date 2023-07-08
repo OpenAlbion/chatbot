@@ -18,7 +18,7 @@
 		$quality = 'Masterpiece';
 	}
 @endphp
-{{ $quality }} - {{ number_format($item['sell_price_min']) }} ({{\Carbon\Carbon::parse($item['sell_price_min_date'])->diffForHumans()}} | UTC)
+{{ $quality }} - {{ number_format($item['sell_price_min']) }} ({{\Carbon\Carbon::parse($item['sell_price_min_date'])->setTimezone($tz)->diffForHumans()}})
 @endif
 @endforeach
 

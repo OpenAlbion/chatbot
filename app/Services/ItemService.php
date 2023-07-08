@@ -20,7 +20,7 @@ class ItemService
         })->values()->take(10)->toArray();
     }
 
-    public function detail(string $region, string $itemId, ?string $enchantment = null): ?string
+    public function detail(string $region, string $itemId, ?string $enchantment = null, ?string $tz = 'UTC'): ?string
     {
         $region = Str::lower($region);
         $response = Http::aod($region, $itemId, $enchantment);
@@ -29,7 +29,8 @@ class ItemService
 
             return view('conversations.itemDetail', [
                 'itemGroups' => $items,
-                'flatItems' => $response->json()
+                'flatItems' => $response->json(),
+                'tz' => $tz
             ])->render();
         }
 

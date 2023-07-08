@@ -6,6 +6,7 @@ use App\Http\Conversations\HelpConversation;
 use App\Http\Conversations\LanguageConversation;
 use App\Http\Conversations\MarketPriceItemConversation;
 use App\Http\Conversations\ServerConversation;
+use App\Http\Conversations\TimezoneConversation;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -61,6 +62,23 @@ $botman->hears('/language {lang}', function ($bot, $lang) {
         $bot->startConversation(new LanguageConversation());
     } else {
         $bot->reply(__('messages.language_conversation.error'));
+    }
+});
+
+$botman->hears('/timezone {tz}', function ($bot, $tz) {
+    $validator = Validator::make([
+        'tz' => $tz,
+    ], [
+        'tz' => ['required', 'timezone'],
+    ]);
+    if ($validator->passes()) {
+        $bot->userStorage()->save([
+            'tz' => $tz,
+        ]);
+
+        $bot->startConversation(new TimezoneConversation());
+    } else {
+        $bot->reply(__('messages.timezone_conversation.error'));
     }
 });
 
