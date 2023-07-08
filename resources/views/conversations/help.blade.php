@@ -1,13 +1,15 @@
-Welcome from OpenAlbion Chatbot
+{{ __('messages.help.welcome') }}
 
-*/server region*: Set the server to East or West
+{{ __('messages.help.server') }}
 
-*/search name*: Check market price for a specific item
+{{ __('messages.help.search') }}
 
-*/download*: Download the OpenAlbion Weaponry app
+{{ __('messages.help.language') }}
 
-*/about*: About OpenAlbion
+{{ __('messages.help.download') }}
 
-*/stop*: Stop the current conversation
+{{ __('messages.help.about') }}
 
-Your current server is {{ $server }}.
+{{ __('messages.help.stop') }}
+
+{{ __('messages.help.current_server', ['server' => $server]) }}

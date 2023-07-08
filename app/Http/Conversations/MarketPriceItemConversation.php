@@ -30,7 +30,7 @@ class MarketPriceItemConversation extends Conversation
             $server = Str::title($this->bot->userStorage()->get('server') ?: 'east');
 
             if (count($buttons) > 1) {
-                $question = Question::create('Please select an item from the options provided')
+                $question = Question::create(__('messages.item_conversation.question'))
                     ->addButtons($buttons);
                 $this->bot->ask($question, function ($answer) use ($items, $server, $itemEnchantment) {
                     if ($answer->isInteractiveMessageReply()) {
@@ -44,7 +44,10 @@ class MarketPriceItemConversation extends Conversation
                                 'parse_mode' => 'Markdown',
                             ]);
                         } else {
-                            $this->bot->reply('No prices found for ' . $items[$answer->getValue()]['name'] . " on the {$server} server.");
+                            $this->bot->reply(__('messages.item_conversation.no_prices', [
+                                'name' => $items[$answer->getValue()]['name'],
+                                'server' => $server
+                            ]));
                         }
                     } else {
                         $this->repeat();
@@ -61,13 +64,18 @@ class MarketPriceItemConversation extends Conversation
                         'parse_mode' => 'Markdown',
                     ]);
                 } else {
-                    $this->bot->reply('No prices found for ' . $items[0]['name'] . " on the {$server} server.");
+                    $this->bot->reply(__('messages.item_conversation.no_prices', [
+                        'name' => $items[0]['name'],
+                        'server' => $server
+                    ]));
                 }
             } else {
-                $this->bot->reply('No items found for ' . $itemName);
+                $this->bot->reply(__('messages.item_conversation.no_items', [
+                    'name' => $itemName,
+                ]));
             }
         } else {
-            $this->bot->reply('Sorry, unable to perform the search at the moment.');
+            $this->bot->reply(__('messages.item_conversation.sorry'));
         }
 
         Cache::forget("user.{$userId}.itemName");

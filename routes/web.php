@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\BotmanMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,7 @@ Route::get('/test', function () {
 });
 
 Route::any('/botman', function () {
-    app('botman')->listen();
+    $botman = app('botman');
+    $botman->middleware->heard(new BotmanMiddleware);
+    $botman->listen();
 });

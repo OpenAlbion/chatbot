@@ -32,5 +32,8 @@ $cheapestItem = collect($flatItems)->where('quality', 1)
 @endphp
 
 @if($cheapestItem && $cheapestItem['sell_price_min'] > 0)
-(The cheapest price for normal quality is {{ number_format($cheapestItem['sell_price_min']) }} silver at {{  $cheapestItem['city'] }} City)
+{{ __('messages.item.cheapest', [
+		'sellPrice' => number_format($cheapestItem['sell_price_min']),
+		'city' => $cheapestItem['city'],
+	]) }}
 @endif
