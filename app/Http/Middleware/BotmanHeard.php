@@ -7,7 +7,7 @@ use BotMan\BotMan\Interfaces\Middleware\Heard;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use Illuminate\Support\Facades\App;
 
-class BotmanMiddleware implements Heard
+class BotmanHeard implements Heard
 {
     public function heard(IncomingMessage $message, $next, BotMan $bot)
     {

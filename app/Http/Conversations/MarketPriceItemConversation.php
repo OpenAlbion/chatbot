@@ -6,6 +6,7 @@ use App\Services\ItemService;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
@@ -34,6 +35,9 @@ class MarketPriceItemConversation extends Conversation
                     ->addButtons($buttons);
                 $this->bot->ask($question, function ($answer) use ($items, $server, $itemEnchantment) {
                     if ($answer->isInteractiveMessageReply()) {
+                        $lang = $this->bot->userStorage()?->get('lang') ?: 'en';
+                        App::setLocale($lang);
+
                         $result = (new ItemService)->detail($server, $items[$answer->getValue()]['id'], $itemEnchantment);
                         if (!empty($result)) {
                             $enchantment = in_array($itemEnchantment, range(1, 4))
