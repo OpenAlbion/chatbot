@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9345669155477093d26f4751c765675b",
+    "content-hash": "ca00d7953b0557903cad0712b958ce25",
     "packages": [
         {
             "name": "botman/botman",
@@ -2629,6 +2629,68 @@
                 }
             ],
             "time": "2023-02-25T19:38:58+00:00"
+        },
+        {
+            "name": "polyskalov/botman-viber-driver",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/polyskalov/botman-viber-driver.git",
+                "reference": "a6252e75177f1b5763c0865c0fa13e4c5e79d951"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/polyskalov/botman-viber-driver/zipball/a6252e75177f1b5763c0865c0fa13e4c5e79d951",
+                "reference": "a6252e75177f1b5763c0865c0fa13e4c5e79d951",
+                "shasum": ""
+            },
+            "require": {
+                "botman/botman": "~2.0",
+                "ext-json": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "botman/studio-addons": "~1.0",
+                "ext-curl": "*",
+                "illuminate/contracts": "~5.5.0",
+                "phpunit/phpunit": "~5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\TheArdent\\Drivers\\Viber\\Providers\\ViberServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TheArdent\\Drivers\\Viber\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oleksii Yaryi",
+                    "email": "oleksii.yaryi@gmail.com"
+                }
+            ],
+            "description": "Viber driver for BotMan",
+            "homepage": "https://github.com/polyskalov/botman-viber-driver",
+            "keywords": [
+                "Botman",
+                "Messenger",
+                "bot",
+                "viber"
+            ],
+            "support": {
+                "issues": "https://github.com/polyskalov/botman-viber-driver/issues",
+                "source": "https://github.com/polyskalov/botman-viber-driver/tree/development"
+            },
+            "time": "2020-06-14T21:44:44+00:00"
         },
         {
             "name": "psr/container",
